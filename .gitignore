@@ -1,0 +1,18 @@
+# dependencies
+node_modules/
+
+# build outputs
+frontend/dist/
+backend/public/
+
+# env & logs
+.env
+.env.*
+logs/
+*.log
+
+# docker
+Dockerfile.old
+
+# misc
+.git

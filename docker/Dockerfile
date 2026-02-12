@@ -1,0 +1,43 @@
+# -------------------------
+# Stage 1: Build Frontend
+# -------------------------
+FROM node:20-alpine AS frontend-builder
+
+WORKDIR /app/frontend
+
+COPY frontend/package*.json ./
+RUN npm install
+
+COPY frontend/ .
+RUN npm run build
+
+
+# -------------------------
+# Stage 2: Build Backend
+# -------------------------
+FROM node:20-alpine AS backend-builder
+
+WORKDIR /app/backend
+
+COPY backend/package*.json ./
+RUN npm install --only=production
+
+COPY backend/ .
+
+
+# -------------------------
+# Stage 3: Runtime Image
+# -------------------------
+FROM node:20-alpine AS runtime
+
+WORKDIR /app
+
+# copy backend build
+COPY --from=backend-builder /app/backend ./
+
+# copy react build into backend/public
+COPY --from=frontend-builder /app/frontend/dist ./public
+
+EXPOSE 3000
+
+CMD ["node", "index.js"]
