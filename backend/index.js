@@ -11,7 +11,6 @@ const APP_NAME = process.env.APP_NAME || "MyApp";
 app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
-    version: "v1",
     app: APP_NAME
   });
 });
