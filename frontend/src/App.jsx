@@ -23,7 +23,7 @@ function App() {
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
-          Hello from version 2
+          Hello from version 3
         </p>
       </div>
       <p className="read-the-docs">
